@@ -57,6 +57,8 @@ ll countMoves(const vector<int>& arr) {
 
 int main()
 {
+    // 빠른 입력이 뭔지 궁금하면 참고하자
+    // https://algospot.com/forum/read/2496/
     ios_base::sync_with_stdio(false);
     cin.tie(0);
 
