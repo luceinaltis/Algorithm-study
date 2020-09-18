@@ -10,6 +10,7 @@ vector<int> makeTable(const string& M)
     vector<int> pi(m, 0);
     int begin = 1, matched = 0;
 
+    // 부분 일치 테이블을 만든다
     while(begin + matched < m)
     {
         if(M[begin+matched] == M[matched])
