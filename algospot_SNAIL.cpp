@@ -1,6 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <cstring>
 using namespace std;
 
 // https://jepo.tistory.com/26 => 배열 초기화 방법
