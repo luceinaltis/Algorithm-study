@@ -43,18 +43,43 @@ ll asymmetric(int width)
     }
 }
 
+ll cache2[101];
+
+// 직접 비대칭이 몇 개 인지 세자
+ll asymmetric2(int width)
+{
+    // 기저 사례
+    if(width <= 2) return 0;
+    // 메모이제이션
+    ll& ret = cache2[width];
+    if(ret != -1) return ret;
+
+    // 점화식
+    // (a)
+    ret = asymmetric2(width - 2) % DIV;
+    // (b)
+    ret = (ret + asymmetric2(width - 4)) % DIV; 
+    // (c)
+    ret = (ret + tiling(width -3)) % DIV; 
+    // (d)
+    ret = (ret + tiling(width -3)) % DIV; 
+
+    return ret;
+}
+
 int main()
 {
     int c;
     cin >> c;
 
     memset(cache, -1, sizeof(cache));
+    memset(cache2, -1, sizeof(cache2));
 
     while(c--)
     {
         cin >> n;
 
-        cout << asymmetric(n) << '\n';
+        cout << asymmetric2(n) << '\n';
     }
 
     return 0;
