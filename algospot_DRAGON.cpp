@@ -1,7 +1,7 @@
+// 기환
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <cstring>
 using namespace std;
 
 const int MAX = 1000000000 + 1;
