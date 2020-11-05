@@ -14,11 +14,11 @@ void precalc()
     length[0] = 1;
     for (int i = 1; i <= 50; ++i)
     {
-        length[i] = min(MAX, length[i - 1] * 2);
+        length[i] = min(MAX, 2 * length[i - 1] + 2);
     }
 }
 
-// 점화식
+// dragonCurve => 한 글자씩 생각하기
 char expand(const string &dragonCurve, int generations, int skip)
 {
     // 기저사례
@@ -35,7 +35,14 @@ char expand(const string &dragonCurve, int generations, int skip)
             {
                 skip -= length[generations];
             }
-            else if (drag)
+            else if (dragonCurve[i] == 'X')
+            {
+                return expand(EXPAND_X, generations - 1, skip);
+            }
+            else
+            {
+                return expand(EXPAND_Y, generations - 1, skip);
+            }
         }
         else if (skip > 0)
         {
@@ -55,11 +62,19 @@ int main()
 
     cin >> c;
 
+    precalc();
+
     while (c--)
     {
         int n, p, l;
 
         cin >> n >> p >> l;
+
+        for (int pos = p; pos < p + l; ++pos)
+        {
+            cout << expand("FX", n, pos - 1);
+        }
+        cout << '\n';
     }
 
     return 0;
