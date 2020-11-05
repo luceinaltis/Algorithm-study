@@ -1,36 +1,52 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <cstring>
 using namespace std;
 
+const int MAX = 1000000000 + 1;
+const string EXPAND_X = "X+YF";
+const string EXPAND_Y = "FX-Y";
+
+int length[51];
+void precalc()
+{
+    length[0] = 1;
+    for (int i = 1; i <= 50; ++i)
+    {
+        length[i] = min(MAX, length[i - 1] * 2);
+    }
+}
+
 // 점화식
-void bf(int leftGen, string str)
+char expand(const string &dragonCurve, int generations, int skip)
 {
     // 기저사례
-    if (leftGen == 0)
+    if (generations == 0)
     {
-        cout << str;
-        return;
+        return dragonCurve[skip];
     }
 
-    // 완전탐색
-    for (int i = 0; i < str.size(); ++i)
+    for (int i = 0; i < dragonCurve.size(); ++i)
     {
-        switch (str[i])
+        if (dragonCurve[i] == 'X' || dragonCurve[i] == 'Y')
         {
-        case 'F':
-        case '+':
-        case '-':
-            cout << str[i];
-            break;
-        case 'X':
-            bf(leftGen - 1, "X+YF");
-            break;
-        case 'Y':
-            bf(leftGen - 1, "FX-Y");
-            break;
+            if (skip >= length[generations])
+            {
+                skip -= length[generations];
+            }
+            else if (drag)
+        }
+        else if (skip > 0)
+        {
+            skip -= 1;
+        }
+        else
+        {
+            return dragonCurve[i];
         }
     }
+    return '#';
 }
 
 int main()
@@ -44,8 +60,7 @@ int main()
         int n, p, l;
 
         cin >> n >> p >> l;
-
-        bf(n, "FX");
     }
+
     return 0;
 }
