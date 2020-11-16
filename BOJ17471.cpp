@@ -24,7 +24,7 @@ void dfs(int here, int color, const int &set)
         int nextNode = adj[here][next];
         // 방문하지 않았을때
         // 같은 선거구일 경우만 탐색
-        if ((visited & (1 << nextNode)) == 0 && (set & (1 << nextNode) > 0 ? 1 : 0 == color))
+        if ((visited & (1 << nextNode)) == 0 && (((set & (1 << nextNode)) > 0 ? 1 : 0) == color))
         {
             // 방문했다고 체크하자
             visited |= (1 << nextNode);
@@ -49,13 +49,13 @@ int calculation(const int &set)
         // 방문하지 않은 구역이라면 방문하자
         if ((visited & (1 << i)) == 0)
         {
-            if (first && ((1 << i) == 0))
+            if (first && ((set & (1 << i)) == 0))
                 continue;
-            if (second && ((1 << i) == 1))
+            if (second && ((set & (1 << i)) > 0))
                 continue;
 
             // 선거구 탐색 여부 기록
-            if ((set & (1 << i)) == 1)
+            if ((set & (1 << i)) > 0)
             {
                 second = 1;
             }
@@ -70,20 +70,20 @@ int calculation(const int &set)
 
     // 모든 선거구를 방문했다면?
     // 가능한 경우이니 인구최솟값을 반환하자.
-    if (visited == ((1 << (n + 1)) - 1))
+    if (visited == ((1 << (n + 1)) - 2))
     {
         int a = 0;
         int b = 0;
         for (int i = 1; i <= n; ++i)
         {
-            if (((1 << i) & set) == 1)
+            if (((1 << i) & set) > 0)
             {
-                // 첫번째 선거구
+                // 두번째 선거구
                 a += population[i];
             }
             else
             {
-                // 두번째 선거구
+                // 첫번째 선거구
                 b += population[i];
             }
         }
