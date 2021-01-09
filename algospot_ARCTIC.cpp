@@ -12,6 +12,7 @@ double posY[101];
 
 bool decision(double d)
 {
+
     vector<bool> visited(n, false);
     queue<int> q;
 
