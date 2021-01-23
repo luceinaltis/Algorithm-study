@@ -5,6 +5,10 @@ using namespace std;
 vector<int> coins;
 vector<int> cache;
 
+/*
+ *  중복의 의미에 대해 생각해보자..
+ */
+
 int main()
 {
     int t;
