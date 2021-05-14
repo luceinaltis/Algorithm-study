@@ -2,6 +2,7 @@
 #include <cstring>
 #include <algorithm>
 #include <cmath>
+#pragma warning(disable : 4996)
 using namespace std;
 
 int n, m;
@@ -10,14 +11,17 @@ int arr[100001];
 int cnt[1000001];
 int ans = 0;
 int queriesAns[100000];
-pair<pair<int, int>, int> queries[100000];
 
-bool compare(const pair<pair<int, int>, int> &a, const pair<pair<int, int>, int> &b)
+struct Query
 {
-    if (a.first.first / sq == b.first.first / sq)
-        return a.first.second < b.first.second;
-    return a.first.first < b.first.second;
-}
+    int start, end, idx;
+    bool operator<(const Query &a)
+    {
+        if ((this->start / sq) == (a.start / sq))
+            return this->end < a.end;
+        return (this->start / sq) < (a.start / sq);
+    }
+} queries[100000];
 
 void add(int idx)
 {
@@ -35,39 +39,32 @@ void sub(int idx)
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-
-    memset(arr, 0, sizeof(arr));
-    memset(cnt, 0, sizeof(cnt));
-
-    cin >> n;
+    scanf("%d", &n);
     sq = sqrt(n);
     for (int i = 1; i <= n; ++i)
     {
-        cin >> arr[i];
+        scanf("%d", &arr[i]);
     }
 
-    cin >> m;
+    scanf("%d", &m);
     for (int i = 0; i < m; ++i)
     {
         int a, b;
 
-        cin >> a >> b;
+        scanf("%d %d", &a, &b);
 
-        queries[i].first.first = a;
-        queries[i].first.second = b;
-        queries[i].second = i;
+        queries[i].start = a;
+        queries[i].end = b;
+        queries[i].idx = i;
     }
 
-    sort(queries, queries + m, compare);
+    sort(queries, queries + m);
 
     // offline queries
     int s = 0, e = 0;
     for (int i = 0; i < m; ++i)
     {
-        int tmpS = queries[i].first.first, tmpE = queries[i].first.second;
+        int tmpS = queries[i].start, tmpE = queries[i].end;
         for (int j = s; j < tmpS; ++j)
             sub(j);
         for (int j = e + 1; j <= tmpE; ++j)
@@ -80,12 +77,12 @@ int main()
         s = tmpS;
         e = tmpE;
 
-        queriesAns[queries[i].second] = ans;
+        queriesAns[queries[i].idx] = ans;
     }
 
     for (int i = 0; i < m; ++i)
     {
-        cout << queriesAns[i] << '\n';
+        printf("%d\n", queriesAns[i]);
     }
 
     return 0;
