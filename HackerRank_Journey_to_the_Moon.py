@@ -35,6 +35,7 @@ def main():
         a, b = list(map(int, input().split(' ')))
         union(parent, rank, a, b)
 
+    # Time Complexity : O(n*logn)
     dic = {}
     for i in range(n):
         setNum = find(parent, i)
