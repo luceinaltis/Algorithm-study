@@ -13,6 +13,7 @@ def main():
     posts = list(map(int, input().split()))
 
     print(Hanoi(posts, len(posts) - 1))
+    print(Hanoi(posts, len(posts) - 1))
 
     return 0
 
