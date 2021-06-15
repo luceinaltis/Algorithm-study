@@ -14,6 +14,8 @@ def detonateBombs(grid, r, c):
     dirX = [-1, 0, 1, 0]
     dirY = [0, 1, 0, -1]
 
+    # test
+
     grid = [list(i) for i in grid]
 
     for x in range(r):
