@@ -12,7 +12,7 @@ def bfs(mp, r, c, x, y, visited):
 
     while que:
         tmpX, tmpY = que.pop()
-
+        # check
         mp[tmpX][tmpY] = 'x'
         visited[tmpX][tmpY] = 1
 
