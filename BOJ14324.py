@@ -45,55 +45,64 @@ def bfs(w, visited, x, y, r, c):
             nextY = tmpY + dirY[i]
 
             if nextX < 0 or nextX >= r:
-                delBfs(w, visited, nextX, nextY, r, c)
+                delBfs(w, visited, tmpX, tmpY, r, c)
                 return
             if nextY < 0 or nextY >= c:
-                delBfs(w, visited, nextX, nextY, r, c)
+                delBfs(w, visited, tmpX, tmpY, r, c)
                 return
 
             if w[nextX][nextY] < w[tmpX][tmpY]:
-                visited[nextX][nextY] = 1
-                delBfs(w, visited, nextX, nextY, r, c)
+                delBfs(w, visited, tmpX, tmpY, r, c)
                 return
+
             elif w[nextX][nextY] != w[tmpX][tmpY]:
                 minimumVal = min(minimumVal, w[nextX][nextY])
 
             if visited[nextX][nextY] == 0 and w[nextX][nextY] == w[tmpX][tmpY]:
                 que.append((nextX, nextY))
 
+    originalVal = w[x][y]
     que.append((x, y))
     while que:
         tmpX, tmpY = que.popleft()
         w[tmpX][tmpY] = minimumVal
+        visited[tmpX][tmpY] = 0
 
         for i in range(4):
             nextX = tmpX + dirX[i]
             nextY = tmpY + dirY[i]
 
             if nextX < 0 or nextX >= r:
-                delBfs(w, visited, nextX, nextY, r, c)
-                return
+                continue
             if nextY < 0 or nextY >= c:
-                delBfs(w, visited, nextX, nextY, r, c)
-                return
+                continue
 
-            if w[nextX][nextY] == w[tmpX][tmpY]:
+            if w[nextX][nextY] == originalVal:
                 que.append((nextX, nextY))
-
-            if w[nextX][nextY] < w[tmpX][tmpY]:
-                visited[nextX][nextY] = 1
-                delBfs(w, visited, nextX, nextY, r, c)
-                return
+    return
 
 
 if __name__ == '__main__':
     t = int(input())
-    for _ in range(t):
+    for case in range(1, t+1):
         r, c = list(map(int, input().split()))
         visited = [[0] * c for _ in range(r)]
 
         mp = []
         for _ in range(r):
             row = list(map(int, input().split()))
-            mp.append(mp)
+            mp.append(row)
         w = copy.deepcopy(mp)
+
+        for _ in range(100):
+            for i in range(r):
+                for j in range(c):
+                    if visited[i][j] == 0:
+                        bfs(w, visited, i, j, r, c)
+
+        ans = 0
+        for i in range(r):
+            for j in range(c):
+                ans += (w[i][j] - mp[i][j])
+
+        print(f'Case #{case}: {ans}')
