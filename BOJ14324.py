@@ -26,7 +26,7 @@ def delBfs(w, visited, x, y, r, c):
                 que.append((nextX, nextY))
 
 
-# if set of cell outside of that area is higher than itself, return 1 or not -1
+# if sets of cell outside of that area is higher than itself, return 1 or not -1
 def bfs(w, visited, x, y, r, c):
     # up, right, down, left
     dirX = [-1, 0, 1, 0]
