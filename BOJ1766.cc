@@ -32,6 +32,8 @@ void calculate()
   while (!que.empty())
   {
     sort(que.begin(), que.end(), greater<int>());
+
+        history.push_back(que.)
   }
 }
 
